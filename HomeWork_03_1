@@ -1,0 +1,88 @@
+// Домашнее задание:
+//   Реализовать стек и очередь
+#include <iostream>
+#include <assert.h>
+using namespace std;
+
+
+// Элемент стека и очереди
+struct E {
+  int value; // Значение элемента
+  E* next; // Указатель на следующий элемент
+};
+
+// Стек
+struct Stack {
+  E* top; // Вершина стека
+  // Конструктор
+  Stack() : top(NULL) { };
+  // Значение поместить на вершину стека
+  void push(int value) {
+     E* temp=new E(); // Создаем временный элемент, который будет помещен на вершину
+     temp->value=value ; // Заносим в него значение
+     temp->next=top;  // Даем ссылку на "бывший" верхний элемент, сохраняя ее в поле адреса
+     top=temp; // далее тесповый элемент становится вершиной
+  }
+  // Взять значение с вершины стека
+  int pop() {
+      E* temp=new E();  // Создаем временную переменную нашей структуры
+      temp=top ; // копируем в нее вершину
+      top=top->next ; // далее возвращаемся к более низкому элементу
+      return temp->value; // выводим значение "бывшей" вершины
+  }
+};
+
+struct Queue {
+    E* start; // необходимо для сохранения начала отчета
+  // Конструктор
+  Queue() : start(NULL) {
+  };
+  // Функция , которая вернет последний элемент , не работает ...
+   E* is_last(){
+      E* temp=new E();
+      temp=start;
+      while(temp->next==NULL){  // здесь не выходит ничего 
+        temp=temp->next;
+      };
+      return temp;
+  }
+  // В конец очереди
+  void put(int value) {
+     if(start->next!=NULL){
+
+     }
+     E* local=new E();
+     local->value=value;
+     is_last()->next=local;
+  }
+  // Забрать первый элемент из очереди
+  int get() {
+    E* temp=new E();
+    temp=start;
+    start=start->next;
+    return temp->value ;
+  }
+};
+
+int main() {
+  Stack s;
+  s.push(2);
+  s.push(3);
+ // assert(s.pop()==3);
+  cout << "3 - " << s.pop() << endl;
+  cout << "2 - " << s.pop() << endl;
+
+  Stack s2;
+  s2.push(10);
+  s.push(11);
+  cout << "11 - " << s.pop() << endl;
+  cout << "10 - " << s2.pop() << endl;
+
+  Queue q;
+  q.put(10);
+  q.put(14);
+  cout << "10 - " << q.get() << endl;
+  cout << "14 - " << q.get() << endl;
+
+  return 0;
+}
